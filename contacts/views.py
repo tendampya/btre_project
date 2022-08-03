@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 
 # Create your views here.
 
+
 def contact(request):
     if request.method == 'POST':
         listing_id = request.POST['listing_id']
@@ -30,43 +31,15 @@ def contact(request):
 
         contact.save()
         # Send Email
+        send_mail(
+            'Property Listing Inquiry',
+            'There has been an inquiry for a property',
+            'postmaster@sandboxafeaf359c2f84254b57a8954e9ee5f50.mailgun.org',
+            ['andrewemoshi@gmail.com']
+        )
         
-        # send_mail(
-        #     'Subject here', 
-        #     'Here is the message.', 
-        #     'andrewemoshi@gmail.com', 
-        #     ['andrewemoshi@gmail.com'], 
-        #     fail_silently=False
-        #     )
-
-
-
-
-
-        # send_message = mail(
-        #     from_email='sales@tendampya.com',
-        #     to_emails='andrewemoshi@gmail.com',
-        #     subject='Sending with Twilio SendGrid is Fun',
-        #     plain_text_content='and easy to do anywhere, even with Python.',
-        #     html_content='<strong>and easy to do anywhere, even with Paython</strong>')
-        # try:
-        #     sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
-        #     response = sg.send(send_message)
-        #     print(response.status_code)
-        #     print(response.body)
-        #     print(response.headers)
-        # except Exception as e:
-        #     print(e.send_message)
-
-
-
-        
-    
-
-        messages.success(request, 'Your request has been submitted, a realtor will get back to you soon')
+	    
+        #messages.success(request, 'Your request has been submitted, a realtor will get back to you soon')
         return redirect('/listings/'+listing_id)
-
-
-
 
 
